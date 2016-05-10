@@ -1,4 +1,3 @@
-pub_key_dir: "/Users/{{ user }}/.ssh"
 pub_key: "{{ pub_key_dir }}/id_rsa.pub"
 apache_mirror: http://apache.mirrors.tds.net
 storm_version: "0.10.0"
