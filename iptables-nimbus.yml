@@ -1,0 +1,5 @@
+---
+- hosts: "{{ env }}_storm_nimbus"
+  roles:
+    - common
+    - iptables-nimbus

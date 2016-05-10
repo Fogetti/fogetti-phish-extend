@@ -22,15 +22,3 @@
   remote_user: "{{ user }}"
   become: yes
   become_user: root
-
-- name: Starting Apache Storm Supervisor
-  supervisorctl: name=storm-supervisor state=restarted
-  remote_user: "{{ user }}"
-  become: yes
-  become_user: root
-
-- name: Starting Apache Storm Logviewer
-  supervisorctl: name=storm-logviewer state=restarted
-  remote_user: "{{ user }}"
-  become: yes
-  become_user: root

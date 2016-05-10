@@ -25,14 +25,16 @@
 
 {% for host in groups[all_servers|join] %}
 {% if host != inventory_hostname %}
+# Storm Supervisor Slot Port #1
 -A INPUT -s {{ host }} -p tcp --dport 6701 -m state --state NEW -j ACCEPT
+# Storm Supervisor Slot Port #2
 -A INPUT -s {{ host }} -p tcp --dport 6700 -m state --state NEW -j ACCEPT
 # Zookeeper Port #1
-# -A INPUT -s {{ host }} -p tcp --dport 3888 -m state --state NEW -j ACCEPT
+-A INPUT -s {{ host }} -p tcp --dport 3888 -m state --state NEW -j ACCEPT
 # Zookeeper Port #2
-# -A INPUT -s {{ host }} -p tcp --dport 2888 -m state --state NEW -j ACCEPT
+-A INPUT -s {{ host }} -p tcp --dport 2888 -m state --state NEW -j ACCEPT
 # Zookeeper Client Port
-# -A INPUT -s {{ host }} -p tcp --dport 2181 -m state --state NEW -j ACCEPT
+-A INPUT -s {{ host }} -p tcp --dport 2181 -m state --state NEW -j ACCEPT
 {% endif %}
 {% endfor %}
 
@@ -58,14 +60,16 @@
 
 {% for host in groups[all_servers|join] %}
 {% if host != inventory_hostname %}
+# Storm Supervisor Slot Port #1
 -A OUTPUT -d {{ host }} -p tcp --sport 6701 -j ACCEPT
+# Storm Supervisor Slot Port #2
 -A OUTPUT -d {{ host }} -p tcp --sport 6700 -j ACCEPT
 # Zookeeper Port #1
-# -A OUTPUT -d {{ host }} -p tcp --sport 3888 -j ACCEPT
+-A OUTPUT -d {{ host }} -p tcp --sport 3888 -j ACCEPT
 # Zookeeper Port #2
-# -A OUTPUT -d {{ host }} -p tcp --sport 2888 -j ACCEPT
+-A OUTPUT -d {{ host }} -p tcp --sport 2888 -j ACCEPT
 # Zookeeper Client Port
-# -A OUTPUT -d {{ host }} -p tcp --sport 2181 -j ACCEPT
+-A OUTPUT -d {{ host }} -p tcp --sport 2181 -j ACCEPT
 {% endif %}
 {% endfor %}
 
