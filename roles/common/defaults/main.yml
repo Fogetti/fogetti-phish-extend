@@ -1,0 +1,12 @@
+pub_key_dir: "/Users/{{ user }}/.ssh"
+pub_key: "{{ pub_key_dir }}/id_rsa.pub"
+apache_mirror: http://apache.mirrors.tds.net
+storm_version: "0.10.0"
+home_dir: "/home/{{ user }}"
+downloads_dir: "{{ home_dir }}/downloads"
+storm_dir: "{{ downloads_dir }}/apache-storm-{{ storm_version }}"
+bin_dir: "{{ storm_dir }}/bin"
+lib_dir: "{{ storm_dir }}/lib"
+conf_dir: "{{ storm_dir }}/conf"
+logs_dir: "{{ storm_dir }}/logs"
+input_dir: "{{ nfs_dir }}/input"

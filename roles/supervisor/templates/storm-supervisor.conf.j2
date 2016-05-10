@@ -1,0 +1,7 @@
+[program:storm-supervisor]
+command={{ storm_dir }}/bin/storm supervisor
+autostart=true
+autorestart=true
+stopsignal=KILL
+stderr_logfile=/var/log/storm-supervisor.err.log
+stdout_logfile=/var/log/storm-supervisor.out.log

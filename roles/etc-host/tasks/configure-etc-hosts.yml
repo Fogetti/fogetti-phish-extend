@@ -1,0 +1,6 @@
+---
+- name: Building etc hosts file
+  template: src=hosts.j2 dest=/etc/hosts
+  remote_user: "{{ user }}"
+  become: yes
+  become_user: root

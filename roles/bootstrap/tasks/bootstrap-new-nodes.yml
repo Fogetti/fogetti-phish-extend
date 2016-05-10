@@ -1,0 +1,36 @@
+---
+- name: Installing software updates
+  apt: update_cache=yes upgrade=yes
+  remote_user: root
+
+- name: Setting Time Zone
+  copy: content='America/Los_Angeles'
+        dest=/etc/timezone
+        owner=root
+        group=root
+        mode=0644
+        backup=yes
+  remote_user: root
+
+- name: Updating timezone
+  command: dpkg-reconfigure --frontend noninteractive tzdata
+  remote_user: root
+
+- name: Creating {{ user }} group
+  group: name={{ user }} state=present
+  remote_user: root
+
+- name: Creating {{ user }} user
+  user: name={{ user }}
+        password={{ password }}
+        shell=/bin/bash
+        comment="{{ user }}"
+        groups="{{ user }},sudo"
+        generate_ssh_key=yes
+        ssh_key_bits=4096
+        ssh_key_file=.ssh/id_rsa
+  remote_user: root
+
+- name: Deploying ssh keys
+  authorized_key: user={{ user }} key="{{ lookup('file', '{{ pub_key }}') }}"
+  remote_user: root
