@@ -1,8 +1,11 @@
 ---
 - include: bootstrap.yml
 - include: etc-host.yml
-- include: iptables.yml
+- include: iptables-worker.yml
+- include: iptables-nimbus.yml
 - include: vim-and-java.yml
 - include: ssh.yml
-- include: storm.yml
-- include: supervisor.yml
+- include: storm-setup.yml
+- include: storm-reconfig.yml
+- include: supervisor-setup.yml
+- include: supervisor-reconfig.yml

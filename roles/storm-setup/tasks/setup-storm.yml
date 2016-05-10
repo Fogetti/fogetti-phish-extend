@@ -22,9 +22,3 @@
   remote_user: "{{ user }}"
   become: yes
   become_user: root
-
-- name: Configuring storm.yaml
-  template: src=storm.yaml.j2 dest={{ storm_dir }}/conf/storm.yaml
-  remote_user: "{{ user }}"
-  become: yes
-  become_user: root
