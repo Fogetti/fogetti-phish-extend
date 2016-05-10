@@ -1,0 +1,28 @@
+---
+- name: Installing vim
+  apt: name=vim state=present
+  remote_user: "{{ user }}"
+  become: yes
+  become_user: root
+
+- name: Adding Oracle Java Repository
+  apt_repository: repo='ppa:webupd8team/java'
+  remote_user: "{{ user }}"
+  become: yes
+  become_user: root
+
+- name: Accepting Java 8 License
+  debconf: name='oracle-java8-installer' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
+  remote_user: "{{ user }}"
+  become: yes
+  become_user: root
+
+- name: Installing Oracle Java 8
+  apt: name={{item}} state=latest
+  remote_user: "{{ user }}"
+  become: yes
+  become_user: root
+  with_items:
+    - oracle-java8-installer
+    - ca-certificates
+    - oracle-java8-set-default

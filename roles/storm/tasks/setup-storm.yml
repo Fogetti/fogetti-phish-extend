@@ -1,0 +1,30 @@
+---
+- name: Creating the downloads folder
+  file: path={{ downloads_dir }} state=directory
+  remote_user: "{{ user }}"
+  become: yes
+  become_user: root
+
+- name: Downloading Apache Storm
+  get_url: dest={{ storm_dir }}.tar.gz url="{{apache_mirror}}/storm/apache-storm-{{storm_version}}/apache-storm-{{storm_version}}.tar.gz"
+  remote_user: "{{ user }}"
+  become: yes
+  become_user: root
+
+- name: Uncompressing the Storm archive
+  unarchive: copy=no creates={{ storm_dir }} dest={{ downloads_dir }} src={{ storm_dir }}.tar.gz
+  remote_user: "{{ user }}"
+  become: yes
+  become_user: root
+
+- name: Creating the storm-local folder
+  file: path={{ storm_dir }}/storm-local state=directory
+  remote_user: "{{ user }}"
+  become: yes
+  become_user: root
+
+- name: Configuring storm.yaml
+  template: src=storm.yaml.j2 dest={{ storm_dir }}/conf/storm.yaml
+  remote_user: "{{ user }}"
+  become: yes
+  become_user: root

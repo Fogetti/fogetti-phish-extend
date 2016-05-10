@@ -1,0 +1,14 @@
+{% set all_servers = [env, "_all_servers" ] %}
+127.0.0.1	localhost
+127.0.1.1	ubuntu.members.linode.com	ubuntu
+
+{% for host in groups[all_servers|join] %}
+{% if hostvars[host]['ansible_ssh_host'] is defined %}
+{{ hostvars[host]['ansible_ssh_host'] }}	{{host}}
+{% endif %}
+{% endfor %}
+
+# The following lines are desirable for IPv6 capable hosts
+::1	localhost ip6-localhost ip6-loopback
+ff02::1	ip6-allnodes
+ff02::2	ip6-allrouters

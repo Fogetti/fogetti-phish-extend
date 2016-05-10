@@ -1,0 +1,5 @@
+---
+- hosts: "{{ env }}_new_workers"
+  roles:
+    - common
+    - storm
