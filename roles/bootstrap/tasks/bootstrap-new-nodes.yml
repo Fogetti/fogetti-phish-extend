@@ -3,10 +3,11 @@
   apt: update_cache=yes upgrade=yes
   remote_user: root
 
-- hostname: name={{ inventory_hostname }}
+- name: Setting hostname
+  hostname: name={{ inventory_hostname }}
   remote_user: root
 
-- name: Setting Time Zone
+- name: Setting time zone
   copy: content='America/Los_Angeles'
         dest=/etc/timezone
         owner=root
