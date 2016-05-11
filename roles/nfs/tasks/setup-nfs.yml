@@ -5,14 +5,14 @@
   become: yes
   become_user: root
 
-- name: Creating /mnt/gilbert
-  file: path=/mnt/gilbert state=directory
+- name: Creating /mnt/gilbertnfs
+  file: path=/mnt/gilbertnfs state=directory
   remote_user: "{{ user }}"
   become: yes
   become_user: root
 
-- name: Mounting /mnt/gilbert
-  mount: name=/mnt/gilbertnfs src='{{ hostvars['gilbert']['ansible_ssh_host'] }}:/var/nfsroot' fstype=nfs opts='rw,async,hard,intr' passno='0 0' state=present
+- name: Mounting /mnt/gilbertnfs
+  mount: name=/mnt/gilbertnfs src='{{ hostvars['gilbert']['ansible_ssh_host'] }}:/var/nfsroot' fstype=nfs opts='rw,async,hard,intr' passno='0 0' state=mounted
   remote_user: "{{ user }}"
   become: yes
   become_user: root
