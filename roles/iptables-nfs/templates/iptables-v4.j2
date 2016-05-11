@@ -1,0 +1,56 @@
+{% set all_servers = [env, "_all_servers" ] %}
+*filter
+
+# Allow all loopback (lo0) traffic and reject traffic
+# to localhost that does not originate from lo0.
+-A INPUT -i lo -j ACCEPT
+-A INPUT ! -i lo -s 127.0.0.0/8 -j REJECT
+
+# Allow ping.
+-A INPUT -p icmp -m state --state NEW --icmp-type 8 -j ACCEPT
+
+# Allow SSH connections.
+-A INPUT -p tcp --dport 22 -m state --state NEW -j ACCEPT
+
+# Apache Storm UI port
+-A INPUT -p tcp --dport 8080 -m state --state NEW -j ACCEPT
+
+# Apache Storm Logviewer port
+-A INPUT -p tcp --dport 8000 -m state --state NEW -j ACCEPT
+
+{% for host in groups[all_servers|join] %}
+{% if host != inventory_hostname %}
+# NFS TCP port
+-A INPUT -s {{ host }} -p tcp --dport 2049 -m state --state NEW -j ACCEPT
+# NFS UDP port
+-A INPUT -s {{ host }} -p udp --dport 2049 -m state --state NEW -j ACCEPT
+{% endif %}
+{% endfor %}
+
+# Allow inbound traffic from established connections.
+# This includes ICMP error returns.
+-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Log what was incoming but denied (optional but useful).
+-A INPUT -m limit --limit 5/min -j LOG --log-prefix "iptables_INPUT_denied: " --log-level 7
+
+# Reject all other inbound.
+-A INPUT -j REJECT
+
+# Log any traffic which was sent to you
+# for forwarding (optional but useful).
+-A FORWARD -m limit --limit 5/min -j LOG --log-prefix "iptables_FORWARD_denied: " --log-level 7
+
+# Reject all traffic forwarding.
+-A FORWARD -j REJECT
+
+{% for host in groups[all_servers|join] %}
+{% if host != inventory_hostname %}
+# NFS TCP port
+-A OUTPUT -d {{ host }} -p tcp --sport 2049 -j ACCEPT
+# NFS UDP port
+-A OUTPUT -d {{ host }} -p udp --sport 2049 -j ACCEPT
+{% endif %}
+{% endfor %}
+
+COMMIT

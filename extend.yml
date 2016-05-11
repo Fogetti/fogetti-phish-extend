@@ -3,6 +3,7 @@
 - include: etc-host.yml
 - include: iptables-worker.yml
 - include: iptables-nimbus.yml
+- include: iptables-nfs.yml
 - include: vim-and-java.yml
 - include: ssh.yml
 - include: nfs.yml
