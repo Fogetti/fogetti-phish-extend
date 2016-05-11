@@ -27,7 +27,13 @@
   become_user: root
 
 - name: Persisting iptables
-  service: name=iptables-persistent state=restarted
+  shell: /etc/init.d/iptables-persistent save
+  remote_user: "{{ user }}"
+  become: yes
+  become_user: root
+
+- name: Reloading iptables
+  shell: /etc/init.d/iptables-persistent reload
   remote_user: "{{ user }}"
   become: yes
   become_user: root
