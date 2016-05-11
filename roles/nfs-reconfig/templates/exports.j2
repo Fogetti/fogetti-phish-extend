@@ -11,6 +11,6 @@
 #
 {% for host in groups[all_servers|join] %}
 {% if hostvars[host]['ansible_ssh_host'] is defined %}
-/var/nfsroot     {{ hostvars[host]['ansible_ssh_host'] }}/32(rw,root_squash,subtree_check)
+/var/nfsroot     {{ hostvars[host]['ansible_ssh_host'] }}/32(rw,no_root_squash,subtree_check)
 {% endif %}
 {% endfor %}
