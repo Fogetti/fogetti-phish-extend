@@ -30,8 +30,13 @@
 # Apache Storm Nimbus port
 -A INPUT -s {{ storm_nimbus }} -p tcp --dport 6627 -m state --state NEW -j ACCEPT
 
+# Desktop redis port
+-A INPUT -s {{ desktop }} -p tcp --dport 6379 -m state --state NEW -j ACCEPT
+
 {% for host in groups[all_servers|join] %}
 {% if host != inventory_hostname %}
+# Redis port
+-A INPUT -s {{ host }} -p tcp --dport 6379 -m state --state NEW -j ACCEPT
 # Storm Supervisor Slot Port #1
 -A INPUT -s {{ host }} -p tcp --dport 6701 -m state --state NEW -j ACCEPT
 # Storm Supervisor Slot Port #2
@@ -72,6 +77,8 @@
 
 {% for host in groups[all_servers|join] %}
 {% if host != inventory_hostname %}
+# Redis port
+-A OUTPUT -d {{ host }} -p tcp --sport 6379 -j ACCEPT
 # Storm Supervisor Slot Port #1
 -A OUTPUT -d {{ host }} -p tcp --sport 6701 -j ACCEPT
 # Storm Supervisor Slot Port #2
