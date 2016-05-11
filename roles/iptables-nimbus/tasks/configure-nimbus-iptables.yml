@@ -31,3 +31,9 @@
   remote_user: "{{ user }}"
   become: yes
   become_user: root
+
+- name: Remedying slow apt-get update
+  lineinfile: dest=/etc/gai.conf regexp="#precedence ::ffff:0:0/96" line="precedence ::ffff:0:0/96  100"
+  remote_user: "{{ user }}"
+  become: yes
+  become_user: root
