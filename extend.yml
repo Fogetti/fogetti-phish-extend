@@ -4,11 +4,12 @@
 - include: iptables-worker.yml
 - include: iptables-nimbus.yml
 - include: iptables-nfs.yml
+- include: iptables-redis-worker.yml
 - include: vim-and-java.yml
-- include: ssh.yml
 - include: nfs-reconfig.yml
 - include: nfs-setup.yml
 - include: storm-setup.yml
 - include: storm-reconfig.yml
 - include: supervisor-setup.yml
 - include: supervisor-reconfig.yml
+- include: ssh.yml
