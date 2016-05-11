@@ -5,6 +5,7 @@
 - include: iptables-nimbus.yml
 - include: vim-and-java.yml
 - include: ssh.yml
+- include: nfs.yml
 - include: storm-setup.yml
 - include: storm-reconfig.yml
 - include: supervisor-setup.yml
