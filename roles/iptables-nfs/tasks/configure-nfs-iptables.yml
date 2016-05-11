@@ -26,6 +26,12 @@
   become: yes
   become_user: root
 
+- name: Persisting iptables
+  service: name=iptables-persistent state=restarted
+  remote_user: "{{ user }}"
+  become: yes
+  become_user: root
+
 - name: Removing the iptables rules
   file: path=/tmp/iptables-v4 state=absent
   remote_user: "{{ user }}"
