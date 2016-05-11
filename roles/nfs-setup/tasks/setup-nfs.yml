@@ -12,7 +12,7 @@
   become_user: root
 
 - name: Mounting /mnt/gilbertnfs
-  mount: name=/mnt/gilbertnfs src='{{ hostvars['gilbert']['ansible_ssh_host'] }}:/var/nfsroot' fstype=nfs opts='rw,async,hard,intr' passno='0 0' state=mounted
+  mount: name=/mnt/gilbertnfs src='{{ hostvars['gilbert']['ansible_ssh_host'] }}:/var/nfsroot' fstype=nfs opts='rw,async,hard,intr' dump='0' passno='0' state=mounted
   remote_user: "{{ user }}"
   become: yes
   become_user: root

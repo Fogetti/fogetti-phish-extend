@@ -1,4 +1,16 @@
 ---
+- name: Configuring the exports file
+  template: src=exports.j2 dest=/etc/exports
+  remote_user: "{{ user }}"
+  become: yes
+  become_user: root
+
+- name: Updating the table of exported file systems
+  shell: exportfs -a
+  remote_user: "{{ user }}"
+  become: yes
+  become_user: root
+
 - name: Restarting nfs-kernel-server service
   service: name=nfs-kernel-server state=restarted
   remote_user: "{{ user }}"
