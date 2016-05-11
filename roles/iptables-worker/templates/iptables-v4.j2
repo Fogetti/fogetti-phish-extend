@@ -1,6 +1,6 @@
-{% set all_servers = [env, "_all_servers" ] %}
-{% set storm_nimbus = [env, "_storm_nimbus" ] %}
-{% set storm_nfs = [env, "_storm_nfs" ] %}
+{% set all_servers = [env, "_all_servers" ]|join %}
+{% set storm_nimbus = [env, "_storm_nimbus" ]|join %}
+{% set storm_nfs = [env, "_storm_nfs" ]|join %}
 *filter
 
 # Allow all loopback (lo0) traffic and reject traffic
@@ -30,7 +30,7 @@
 # Apache Storm Nimbus port
 -A INPUT -s {{ groups[storm_nimbus][0] }} -p tcp --dport 6627 -m state --state NEW -j ACCEPT
 
-{% for host in groups[all_servers|join] %}
+{% for host in groups[all_servers] %}
 {% if host != inventory_hostname %}
 # Storm Supervisor Slot Port #1
 -A INPUT -s {{ host }} -p tcp --dport 6701 -m state --state NEW -j ACCEPT
@@ -70,7 +70,7 @@
 # Apache Storm Nimbus port
 -A OUTPUT -d {{ groups[storm_nimbus][0] }} -p tcp --sport 6627 -j ACCEPT
 
-{% for host in groups[all_servers|join] %}
+{% for host in groups[all_servers] %}
 {% if host != inventory_hostname %}
 # Storm Supervisor Slot Port #1
 -A OUTPUT -d {{ host }} -p tcp --sport 6701 -j ACCEPT
