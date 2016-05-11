@@ -1,0 +1,5 @@
+---
+- hosts: "{{ env }}_storm_nfs"
+  roles:
+    - common
+    - iptables-nfs
