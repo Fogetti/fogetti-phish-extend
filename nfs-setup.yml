@@ -2,4 +2,4 @@
 - hosts: "{{ env }}_new_workers"
   roles:
     - common
-    - nfs
+    - nfs-setup

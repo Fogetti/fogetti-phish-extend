@@ -1,0 +1,6 @@
+---
+- name: Restarting nfs service
+  service: name=nfs state=restarted
+  remote_user: "{{ user }}"
+  become: yes
+  become_user: root

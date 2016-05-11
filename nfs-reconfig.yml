@@ -1,0 +1,6 @@
+---
+- hosts: "{{ env }}_storm_nfs"
+  connection: local
+  roles:
+    - common
+    - nfs-reconfig
