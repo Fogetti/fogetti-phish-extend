@@ -20,15 +20,15 @@
 -A INPUT -p tcp --dport 443 -m state --state NEW -j ACCEPT
 
 # NFS TCP port
--A INPUT -s {{ storm_nfs }} -p tcp --dport 2049 -m state --state NEW -j ACCEPT
+-A INPUT -s {{ groups[storm_nfs][0] }} -p tcp --dport 2049 -m state --state NEW -j ACCEPT
 # NFS UDP port
--A INPUT -s {{ storm_nfs }} -p udp --dport 2049 -m state --state NEW -j ACCEPT
+-A INPUT -s {{ groups[storm_nfs][0] }} -p udp --dport 2049 -m state --state NEW -j ACCEPT
 
 # Apache Storm Logviewer port
 -A INPUT -p tcp --dport 8000 -m state --state NEW -j ACCEPT
 
 # Apache Storm Nimbus port
--A INPUT -s {{ storm_nimbus }} -p tcp --dport 6627 -m state --state NEW -j ACCEPT
+-A INPUT -s {{ groups[storm_nimbus][0] }} -p tcp --dport 6627 -m state --state NEW -j ACCEPT
 
 # Desktop redis port
 -A INPUT -s {{ desktop }} -p tcp --dport 6379 -m state --state NEW -j ACCEPT
@@ -68,12 +68,12 @@
 -A FORWARD -j REJECT
 
 # NFS TCP port
--A OUTPUT -d {{ storm_nfs }} -p tcp --sport 2049 -j ACCEPT
+-A OUTPUT -d {{ groups[storm_nfs][0] }} -p tcp --sport 2049 -j ACCEPT
 # NFS UDP port
--A OUTPUT -d {{ storm_nfs }} -p udp --sport 2049 -j ACCEPT
+-A OUTPUT -d {{ groups[storm_nfs][0] }} -p udp --sport 2049 -j ACCEPT
 
 # Apache Storm Nimbus port
--A OUTPUT -d {{ storm_nimbus }} -p tcp --sport 6627 -j ACCEPT
+-A OUTPUT -d {{ groups[storm_nimbus][0] }} -p tcp --sport 6627 -j ACCEPT
 
 {% for host in groups[all_servers|join] %}
 {% if host != inventory_hostname %}
