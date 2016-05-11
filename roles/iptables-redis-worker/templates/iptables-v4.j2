@@ -31,7 +31,7 @@
 -A INPUT -s {{ groups[storm_nimbus][0] }} -p tcp --dport 6627 -m state --state NEW -j ACCEPT
 
 # Desktop redis port
--A INPUT -s {{ desktop }} -p tcp --dport 6379 -m state --state NEW -j ACCEPT
+-A INPUT -s {{ groups["desktop"][0] }} -p tcp --dport 6379 -m state --state NEW -j ACCEPT
 
 {% for host in groups[all_servers] %}
 {% if host != inventory_hostname %}
