@@ -33,9 +33,11 @@
 # Apache Storm Nimbus port
 -A INPUT -s {{ host }} -p tcp --dport 6627 -m state --state NEW -j ACCEPT
 # Storm Supervisor Slot Port #1
--A INPUT -s {{ host }} -p tcp --dport 6701 -m state --state NEW -j ACCEPT
-# Storm Supervisor Slot Port #2
 -A INPUT -s {{ host }} -p tcp --dport 6700 -m state --state NEW -j ACCEPT
+# Storm Supervisor Slot Port #2
+-A INPUT -s {{ host }} -p tcp --dport 6701 -m state --state NEW -j ACCEPT
+# Storm Supervisor Slot Port #3
+-A INPUT -s {{ host }} -p tcp --dport 6702 -m state --state NEW -j ACCEPT
 # Zookeeper Port #1
 -A INPUT -s {{ host }} -p tcp --dport 3888 -m state --state NEW -j ACCEPT
 # Zookeeper Port #2
@@ -72,9 +74,11 @@
 # Apache Storm Nimbus port
 -A OUTPUT -d {{ host }} -p tcp --sport 6627 -j ACCEPT
 # Storm Supervisor Slot Port #1
--A OUTPUT -d {{ host }} -p tcp --sport 6701 -j ACCEPT
-# Storm Supervisor Slot Port #2
 -A OUTPUT -d {{ host }} -p tcp --sport 6700 -j ACCEPT
+# Storm Supervisor Slot Port #2
+-A OUTPUT -d {{ host }} -p tcp --sport 6701 -j ACCEPT
+# Storm Supervisor Slot Port #3
+-A OUTPUT -d {{ host }} -p tcp --sport 6702 -j ACCEPT
 # Zookeeper Port #1
 -A OUTPUT -d {{ host }} -p tcp --sport 3888 -j ACCEPT
 # Zookeeper Port #2
