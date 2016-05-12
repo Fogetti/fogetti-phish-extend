@@ -1,4 +1,4 @@
-{% set storm_cluster = [env, "_storm_cluster" ] %}
+{% set storm_zookeeper = [env, "_storm_zookeeper" ] %}
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
 # distributed with this work for additional information
@@ -17,7 +17,7 @@
 
 ########### These MUST be filled in for a storm configuration
 storm.zookeeper.servers:
-{% for host in groups[storm_cluster|join] %}
+{% for host in groups[storm_zookeeper|join] %}
     - "{{host}}"
 {% endfor %}
 
