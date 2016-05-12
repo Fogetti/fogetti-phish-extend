@@ -34,7 +34,11 @@ supervisor.slots.ports:
     - 6701
     - 6702
 
-supervisor.worker.timeout.secs: 5
+#how long supervisor will wait to ensure that a worker process is started
+supervisor.worker.start.timeout.secs: 180
+
+#how long between heartbeats until supervisor considers that worker dead and tries to restart it
+supervisor.worker.timeout.secs: 60
 
 # ##### These may optionally be filled in:
 #    
