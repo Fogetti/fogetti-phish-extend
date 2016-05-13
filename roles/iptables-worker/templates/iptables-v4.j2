@@ -1,6 +1,7 @@
 {% set all_servers = [env, "_all_servers" ]|join %}
 {% set storm_nimbus = [env, "_storm_nimbus" ]|join %}
 {% set storm_nfs = [env, "_storm_nfs" ]|join %}
+{% set storm_redis = [env, "_storm_redis" ]|join %}
 *filter
 
 # Allow all loopback (lo0) traffic and reject traffic
@@ -29,6 +30,9 @@
 
 # Apache Storm Nimbus port
 -A INPUT -s {{ groups[storm_nimbus][0] }} -p tcp --dport 6627 -m state --state NEW -j ACCEPT
+
+# Redis port
+-A INPUT -s {{ groups[storm_redis][0] }} -p tcp --dport 6379 -m state --state NEW -j ACCEPT
 
 {% for host in groups[all_servers] %}
 {% if host != inventory_hostname %}
@@ -71,6 +75,9 @@
 
 # Apache Storm Nimbus port
 -A OUTPUT -d {{ groups[storm_nimbus][0] }} -p tcp --sport 6627 -j ACCEPT
+
+# Redis port
+-A OUTPUT -d {{ groups[storm_redis][0] }} -p tcp --sport 6379 -j ACCEPT
 
 {% for host in groups[all_servers] %}
 {% if host != inventory_hostname %}
