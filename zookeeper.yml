@@ -1,0 +1,5 @@
+---
+- hosts: "{{ env }}_storm_zookeeper"
+  roles:
+    - common
+    - zookeeper

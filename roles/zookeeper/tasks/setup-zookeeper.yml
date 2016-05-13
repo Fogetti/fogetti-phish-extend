@@ -1,0 +1,32 @@
+---
+- name: Creating the downloads folder
+  file: path={{ downloads_dir }} state=directory
+  remote_user: "{{ user }}"
+
+- name: Downloading Zookeeper
+  get_url: dest={{ zookeeper_dir }}.tar.gz url="{{zookeeper_mirror}}/dist/zookeeper/zookeeper-{{zookeeper_version}}/zookeeper-{{zookeeper_version}}.tar.gz"
+  remote_user: "{{ user }}"
+
+- name: Uncompressing the Zookeeper archive
+  unarchive: copy=no creates={{ zookeeper_dir }} dest={{ downloads_dir }} src={{ zookeeper_dir }}.tar.gz
+  remote_user: "{{ user }}"
+
+- name: Configuring zoo.cfg
+  template: src=zoo.cfg.j2 dest={{ zookeeper_dir }}/conf/zoo.cfg
+  remote_user: "{{ user }}"
+
+- name: Configuring myid file
+  template: src=myid.j2 dest=/var/lib/zookeeper/myid
+  remote_user: "{{ user }}"
+
+- name: Adding Zookeeper to supervisord
+  template: src=zookeeper.conf.j2 dest=/etc/supervisor/conf.d/zookeeper.conf
+  remote_user: "{{ user }}"
+  become: yes
+  become_user: root
+
+- name: Starting Zookeeper
+  supervisorctl: name=zookeeper state=restarted
+  remote_user: "{{ user }}"
+  become: yes
+  become_user: root
