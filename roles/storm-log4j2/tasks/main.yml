@@ -1,0 +1,2 @@
+---
+- include: config-log4j2.yml
