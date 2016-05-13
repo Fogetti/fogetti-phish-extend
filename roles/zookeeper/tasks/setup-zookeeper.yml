@@ -15,6 +15,10 @@
   template: src=zoo.cfg.j2 dest={{ zookeeper_dir }}/conf/zoo.cfg
   remote_user: "{{ user }}"
 
+- name: Creating the Zookeeper data folder
+  file: path=/var/lib/zookeeper state=directory
+  remote_user: "{{ user }}"
+
 - name: Configuring myid file
   template: src=myid.j2 dest=/var/lib/zookeeper/myid
   remote_user: "{{ user }}"
