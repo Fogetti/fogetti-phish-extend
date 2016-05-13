@@ -1,5 +1,5 @@
 ---
-- hosts: "{{ env }}_new_workers"
+- hosts: "{{ env }}_storm_cluster"
   roles:
     - common
     - storm-setup

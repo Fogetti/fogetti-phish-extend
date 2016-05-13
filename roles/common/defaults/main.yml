@@ -1,6 +1,6 @@
 pub_key: "{{ pub_key_dir }}/id_rsa.pub"
 apache_mirror: http://apache.mirrors.tds.net
-storm_version: "0.10.0"
+storm_version: "1.0.1"
 home_dir: "/home/{{ user }}"
 downloads_dir: "{{ home_dir }}/downloads"
 storm_dir: "{{ downloads_dir }}/apache-storm-{{ storm_version }}"
