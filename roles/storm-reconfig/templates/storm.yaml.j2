@@ -32,13 +32,16 @@ nimbus.host: "dimebag"
 supervisor.slots.ports:
     - 6700
     - 6701
-    - 6702
 
 #how long supervisor will wait to ensure that a worker process is started
-supervisor.worker.start.timeout.secs: 180
+supervisor.worker.start.timeout.secs: 120
 
 #how long between heartbeats until supervisor considers that worker dead and tries to restart it
-supervisor.worker.timeout.secs: 60
+supervisor.worker.timeout.secs: 5
+
+supervisor.memory.capacity.mb: 768.0
+
+worker.heap.memory.mb: 384
 
 # ##### These may optionally be filled in:
 #    
