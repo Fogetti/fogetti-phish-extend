@@ -7,14 +7,14 @@
 
 - name: Updating log4j2 cluster configuration
   template: src=cluster.xml.j2
-            dest={{ log4j2_dir }}
+            dest={{ log4j2_dir }}/cluster.xml
   remote_user: "{{ user }}"
   become: yes
   become_user: root
 
 - name: Updating log4j2 worker configuration
   template: src=worker.xml.j2
-            dest={{ log4j2_dir }}
+            dest={{ log4j2_dir }}/worker.xml
   remote_user: "{{ user }}"
   become: yes
   become_user: root
