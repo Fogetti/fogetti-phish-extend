@@ -11,7 +11,7 @@
 - include: storm-setup.yml
 - include: storm-reconfig.yml
 - include: storm-log4j2.yml
-- include: zookeeper.yml
 - include: supervisor-setup.yml
 - include: supervisor-reconfig.yml
+- include: zookeeper.yml
 - include: ssh.yml
