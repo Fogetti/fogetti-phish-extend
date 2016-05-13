@@ -12,7 +12,7 @@
   remote_user: "{{ user }}"
 
 - name: Configuring zoo.cfg
-  template: src=zoo.cfg.j2 dest={{ zookeeper_dir }}/conf/zoo.cfg
+  template: src=zoo.cfg.j2 dest={{ zookeeper_dir }}/conf/zoo.cfg owner={{ user }} group={{ user }} 
   remote_user: "{{ user }}"
 
 - name: Creating the Zookeeper data folder

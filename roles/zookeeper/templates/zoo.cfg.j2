@@ -28,6 +28,6 @@ clientPort=2181
 # Set to "0" to disable auto purge feature
 #autopurge.purgeInterval=1
 # Ensemble inventory
-{% for host in storm_zookeeper %}
+{% for host in groups[storm_zookeeper] %}
 server.{{loop.index}}={{host}}:2888:3888
 {% endfor %}
