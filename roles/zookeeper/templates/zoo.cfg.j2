@@ -1,4 +1,4 @@
-{% set storm_zookeeper = [env, "_storm_zookeeper" ] %}
+{% set storm_zookeeper = [env, "_storm_zookeeper" ]|join %}
 # The number of milliseconds of each tick
 tickTime=2000
 # The number of ticks that the initial 
