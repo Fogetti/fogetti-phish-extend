@@ -43,11 +43,6 @@
 -A INPUT -s {{ host }} -p tcp --dport 6701 -m state --state NEW -j ACCEPT
 # Storm Supervisor Slot Port #3
 -A INPUT -s {{ host }} -p tcp --dport 6702 -m state --state NEW -j ACCEPT
-{% endif %}
-{% endfor %}
-
-{% for host in groups[storm_zookeeper] %}
-{% if host != inventory_hostname %}
 # Zookeeper Port #1
 -A INPUT -s {{ host }} -p tcp --dport 3888 -m state --state NEW -j ACCEPT
 # Zookeeper Port #2
