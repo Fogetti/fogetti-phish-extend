@@ -1,4 +1,5 @@
-{% set all_servers = [env, "_all_servers" ] %}
+{% set all_servers = [env, "_all_servers" ]|join %}
+{% set storm_zookeeper = [env, "_storm_zookeeper" ]|join %}
 *filter
 
 # Allow all loopback (lo0) traffic and reject traffic
@@ -28,16 +29,10 @@
 # Apache Storm Logviewer port
 -A INPUT -p tcp --dport 8000 -m state --state NEW -j ACCEPT
 
-{% for host in groups[all_servers|join] %}
+{% for host in groups[all_servers] %}
 {% if host != inventory_hostname %}
 # Apache Storm Nimbus port
 -A INPUT -s {{ host }} -p tcp --dport 6627 -m state --state NEW -j ACCEPT
-# Storm Supervisor Slot Port #1
--A INPUT -s {{ host }} -p tcp --dport 6700 -m state --state NEW -j ACCEPT
-# Storm Supervisor Slot Port #2
--A INPUT -s {{ host }} -p tcp --dport 6701 -m state --state NEW -j ACCEPT
-# Storm Supervisor Slot Port #3
--A INPUT -s {{ host }} -p tcp --dport 6702 -m state --state NEW -j ACCEPT
 # Zookeeper Port #1
 -A INPUT -s {{ host }} -p tcp --dport 3888 -m state --state NEW -j ACCEPT
 # Zookeeper Port #2
@@ -69,7 +64,7 @@
 # NFS UDP port
 -A OUTPUT -d gilbert -p udp --sport 2049 -j ACCEPT
 
-{% for host in groups[all_servers|join] %}
+{% for host in groups[all_servers] %}
 {% if host != inventory_hostname %}
 # Apache Storm Nimbus port
 -A OUTPUT -d {{ host }} -p tcp --sport 6627 -j ACCEPT
@@ -79,6 +74,11 @@
 -A OUTPUT -d {{ host }} -p tcp --sport 6701 -j ACCEPT
 # Storm Supervisor Slot Port #3
 -A OUTPUT -d {{ host }} -p tcp --sport 6702 -j ACCEPT
+{% endif %}
+{% endfor %}
+
+{% for host in groups[storm_zookeeper] %}
+{% if host != inventory_hostname %}
 # Zookeeper Port #1
 -A OUTPUT -d {{ host }} -p tcp --sport 3888 -j ACCEPT
 # Zookeeper Port #2

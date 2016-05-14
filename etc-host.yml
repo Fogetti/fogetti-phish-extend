@@ -1,5 +1,5 @@
 ---
-- hosts: "{{ env }}_storm_cluster"
+- hosts: "{{ env }}_all_servers"
   roles:
     - common
     - etc-host

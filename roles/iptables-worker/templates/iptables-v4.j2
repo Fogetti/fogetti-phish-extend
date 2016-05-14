@@ -1,7 +1,8 @@
-{% set all_servers = [env, "_all_servers" ]|join %}
+{% set storm_cluster = [env, "_storm_cluster" ]|join %}
 {% set storm_nimbus = [env, "_storm_nimbus" ]|join %}
 {% set storm_nfs = [env, "_storm_nfs" ]|join %}
 {% set storm_redis = [env, "_storm_redis" ]|join %}
+{% set storm_zookeeper = [env, "_storm_zookeeper" ]|join %}
 *filter
 
 # Allow all loopback (lo0) traffic and reject traffic
@@ -34,7 +35,7 @@
 # Redis port
 -A INPUT -s {{ groups[storm_redis][0] }} -p tcp --dport 6379 -m state --state NEW -j ACCEPT
 
-{% for host in groups[all_servers] %}
+{% for host in groups[storm_cluster] %}
 {% if host != inventory_hostname %}
 # Storm Supervisor Slot Port #1
 -A INPUT -s {{ host }} -p tcp --dport 6700 -m state --state NEW -j ACCEPT
@@ -42,6 +43,11 @@
 -A INPUT -s {{ host }} -p tcp --dport 6701 -m state --state NEW -j ACCEPT
 # Storm Supervisor Slot Port #3
 -A INPUT -s {{ host }} -p tcp --dport 6702 -m state --state NEW -j ACCEPT
+{% endif %}
+{% endfor %}
+
+{% for host in groups[storm_zookeeper] %}
+{% if host != inventory_hostname %}
 # Zookeeper Port #1
 -A INPUT -s {{ host }} -p tcp --dport 3888 -m state --state NEW -j ACCEPT
 # Zookeeper Port #2
@@ -79,7 +85,7 @@
 # Redis port
 -A OUTPUT -d {{ groups[storm_redis][0] }} -p tcp --sport 6379 -j ACCEPT
 
-{% for host in groups[all_servers] %}
+{% for host in groups[storm_cluster] %}
 {% if host != inventory_hostname %}
 # Storm Supervisor Slot Port #1
 -A OUTPUT -d {{ host }} -p tcp --sport 6700 -j ACCEPT
@@ -87,6 +93,11 @@
 -A OUTPUT -d {{ host }} -p tcp --sport 6701 -j ACCEPT
 # Storm Supervisor Slot Port #3
 -A OUTPUT -d {{ host }} -p tcp --sport 6702 -j ACCEPT
+{% endif %}
+{% endfor %}
+
+{% for host in groups[storm_zookeeper] %}
+{% if host != inventory_hostname %}
 # Zookeeper Port #1
 -A OUTPUT -d {{ host }} -p tcp --sport 3888 -j ACCEPT
 # Zookeeper Port #2
