@@ -8,10 +8,10 @@
 - include: vim-and-java.yml
 - include: nfs-reconfig.yml
 - include: nfs-setup.yml
+- include: supervisor-setup.yml
+- include: zookeeper.yml
 - include: storm-setup.yml
 - include: storm-reconfig.yml
 - include: storm-log4j2.yml
-- include: supervisor-setup.yml
 - include: supervisor-reconfig.yml
-- include: zookeeper.yml
 - include: ssh.yml
