@@ -27,7 +27,7 @@ storm.local.dir: "{{ storm_dir }}/storm-local"
 
 java.library.path: "/usr"
 
-nimbus.host: "dimebag"
+nimbus.seeds: ["dimebag"]
  
 supervisor.slots.ports:
     - 6700
@@ -43,7 +43,9 @@ supervisor.memory.capacity.mb: 256
 
 worker.heap.memory.mb: 768
 
-worker.childopts: "-Xms%HEAP-MEM%m -Xmx%HEAP-MEM%m -XX:+PrintGCDetails -Xloggc:artifacts/gc.log -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=1M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump"
+worker.childopts: null
+
+topology.worker.childopts: "-Xms%HEAP-MEM%m -Xmx%HEAP-MEM%m -XX:+PrintGCDetails -Xloggc:artifacts/gc.log -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=1M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump"
 
 # ##### These may optionally be filled in:
 #    
