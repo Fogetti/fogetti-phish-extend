@@ -77,7 +77,13 @@
         <appender-ref ref="A1"/>
     </root>
     <Logger name="com.gargoylesoftware" level="OFF" additivity="false">
-        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="A1"/>
+    </Logger>
+    <Logger name="org.apache.commons.httpclient" level="INFO" additivity="false">
+        <appender-ref ref="A1"/>
+    </Logger>
+    <Logger name="org.apache.storm.shade.org.apache.zookeeper.ClientCnxn" level="INFO" additivity="false">
+        <appender-ref ref="A1"/>
     </Logger>
     <Logger name="org.apache.storm.metric.LoggingMetricsConsumer" level="info" additivity="false">
         <appender-ref ref="METRICS"/>
