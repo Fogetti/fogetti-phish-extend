@@ -76,6 +76,18 @@
     <root level="DEBUG"> <!-- We log everything -->
         <appender-ref ref="A1"/>
     </root>
+    <Logger name="com.gargoylesoftware" level="OFF" additivity="false">
+        <appender-ref ref="A1"/>
+    </Logger>
+    <Logger name="org.apache.http.wire" level="INFO" additivity="false">
+        <appender-ref ref="A1"/>
+    </Logger>
+    <Logger name="org.apache.http.headers" level="INFO" additivity="false">
+        <appender-ref ref="A1"/>
+    </Logger>
+    <Logger name="org.apache.commons.httpclient" level="INFO" additivity="false">
+        <appender-ref ref="A1"/>
+    </Logger>
     <Logger name="org.apache.storm.shade.org.apache.zookeeper.ClientCnxn" level="INFO" additivity="false">
         <appender-ref ref="A1"/>
     </Logger>
