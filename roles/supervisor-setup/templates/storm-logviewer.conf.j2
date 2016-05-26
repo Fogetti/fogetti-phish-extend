@@ -3,5 +3,6 @@ command={{ storm_dir }}/bin/storm logviewer
 autostart=true
 autorestart=true
 stopsignal=KILL
+environment=JAVA_HOME="/usr/lib/jvm/java-8-oracle"
 stderr_logfile=/var/log/storm-logviewer.err.log
 stdout_logfile=/var/log/storm-logviewer.out.log
