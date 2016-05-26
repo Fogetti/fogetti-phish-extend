@@ -33,7 +33,7 @@ supervisor.slots.ports:
     - 6700
     - 6701
 
-supervisor.childopts: "-Dcom.sun.management.jmxremote.port=2222 -Dcom.sun.management.jmxremote.authenticate=false -Djava.rmi.server.hostname={{ inventory_hostname }} -Xms256m -Xmx256m"
+supervisor.childopts: "-Xms256m -Xmx256m"
 
 #how long supervisor will wait to ensure that a worker process is started
 supervisor.worker.start.timeout.secs: 120
@@ -45,7 +45,7 @@ supervisor.memory.capacity.mb: 1536
 
 worker.heap.memory.mb: 768
 
-worker.childopts: "-Dcom.sun.management.jmxremote.port=2%ID% -Dcom.sun.management.jmxremote.authenticate=false -Djava.rmi.server.hostname={{ inventory_hostname }} -Xms%HEAP-MEM%m -Xmx%HEAP-MEM%m -XX:+PrintGCDetails -Xloggc:artifacts/gc.log -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=1M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump"
+worker.childopts: "-Xms%HEAP-MEM%m -Xmx%HEAP-MEM%m -XX:+PrintGCDetails -Xloggc:artifacts/gc.log -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=1M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump"
 
 # ##### These may optionally be filled in:
 #    

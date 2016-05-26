@@ -21,15 +21,6 @@
 -A INPUT -p tcp --dport 80 -m state --state NEW -j ACCEPT
 -A INPUT -p tcp --dport 443 -m state --state NEW -j ACCEPT
 
-# Storm Supervisor JMX TCP port
--A INPUT -s {{ hostvars[desktop]['ansible_ssh_host'] }} -p tcp --dport 1099 -m state --state NEW -j ACCEPT
-# Storm Worker JMX TCP port #1
--A INPUT -s {{ hostvars[desktop]['ansible_ssh_host'] }} -p tcp --dport 26700 -m state --state NEW -j ACCEPT
-# Storm Worker JMX TCP port #2
--A INPUT -s {{ hostvars[desktop]['ansible_ssh_host'] }} -p tcp --dport 26701 -m state --state NEW -j ACCEPT
-# Storm Worker JMX TCP port #3
--A INPUT -s {{ hostvars[desktop]['ansible_ssh_host'] }} -p tcp --dport 26702 -m state --state NEW -j ACCEPT
-
 # NFS TCP port
 -A INPUT -s {{ groups[storm_nfs][0] }} -p tcp --dport 2049 -m state --state NEW -j ACCEPT
 # NFS UDP port
