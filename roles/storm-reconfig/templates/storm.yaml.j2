@@ -31,7 +31,6 @@ nimbus.seeds: ["dimebag"]
  
 supervisor.slots.ports:
     - 6700
-    - 6701
 
 supervisor.childopts: "-Xms256m -Xmx256m"
 
@@ -41,13 +40,15 @@ supervisor.worker.start.timeout.secs: 120
 #how long between heartbeats until supervisor considers that worker dead and tries to restart it
 supervisor.worker.timeout.secs: 5
 
-supervisor.memory.capacity.mb: 1536
+supervisor.memory.capacity.mb: 512
 
 worker.profiler.enabled: true
 
-worker.heap.memory.mb: 768
+worker.heap.memory.mb: 1536
 
 worker.childopts: "-Xms%HEAP-MEM%m -Xmx%HEAP-MEM%m -XX:+PrintGCDetails -Xloggc:artifacts/gc.log -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=1M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump"
+
+topology.eventlogger.executors: 1
 
 # ##### These may optionally be filled in:
 #    
