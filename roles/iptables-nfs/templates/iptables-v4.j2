@@ -1,4 +1,5 @@
 {% set all_servers = [env, "_all_servers" ] %}
+{% set storm_zookeeper = [env, "_storm_zookeeper" ]|join %}
 *filter
 
 # Allow all loopback (lo0) traffic and reject traffic
@@ -58,6 +59,13 @@
 -A OUTPUT -d {{ host }} -p tcp --sport 2049 -j ACCEPT
 # NFS UDP port
 -A OUTPUT -d {{ host }} -p udp --sport 2049 -j ACCEPT
+{% endif %}
+{% endfor %}
+
+{% for host in groups[storm_zookeeper] %}
+{% if host != inventory_hostname %}
+# Zookeeper client port
+-A OUTPUT -d {{ host }} -p tcp --sport 2181 -j ACCEPT
 {% endif %}
 {% endfor %}
 

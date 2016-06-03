@@ -52,6 +52,9 @@
 {% endif %}
 {% endfor %}
 
+# Zookeeper Client Port
+-A INPUT -s {{ groups[storm_nfs][0] }} -p tcp --dport 2181 -m state --state NEW -j ACCEPT
+
 # Allow inbound traffic from established connections.
 # This includes ICMP error returns.
 -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT

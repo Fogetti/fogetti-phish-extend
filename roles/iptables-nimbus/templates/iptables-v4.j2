@@ -1,5 +1,6 @@
 {% set all_servers = [env, "_all_servers" ]|join %}
 {% set storm_zookeeper = [env, "_storm_zookeeper" ]|join %}
+{% set storm_nfs = [env, "_storm_nfs" ]|join %}
 *filter
 
 # Allow all loopback (lo0) traffic and reject traffic
@@ -41,6 +42,9 @@
 -A INPUT -s {{ host }} -p tcp --dport 2181 -m state --state NEW -j ACCEPT
 {% endif %}
 {% endfor %}
+
+# Zookeeper Client Port
+-A INPUT -s {{ groups[storm_nfs][0] }} -p tcp --dport 2181 -m state --state NEW -j ACCEPT
 
 # Allow inbound traffic from established connections.
 # This includes ICMP error returns.
