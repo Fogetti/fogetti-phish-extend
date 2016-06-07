@@ -40,6 +40,12 @@
 -A INPUT -s {{ host }} -p tcp --dport 2888 -m state --state NEW -j ACCEPT
 # Zookeeper Client Port
 -A INPUT -s {{ host }} -p tcp --dport 2181 -m state --state NEW -j ACCEPT
+# External DRPC Clients
+-A INPUT -s {{ host }} -p tcp --dport 3772 -m state --state NEW -j ACCEPT
+# Worker Processes
+-A INPUT -s {{ host }} -p tcp --dport 3773 -m state --state NEW -j ACCEPT
+# External HTTP DRPC Clients
+-A INPUT -s {{ host }} -p tcp --dport 3774 -m state --state NEW -j ACCEPT
 {% endif %}
 {% endfor %}
 
@@ -78,6 +84,12 @@
 -A OUTPUT -d {{ host }} -p tcp --sport 6701 -j ACCEPT
 # Storm Supervisor Slot Port #3
 -A OUTPUT -d {{ host }} -p tcp --sport 6702 -j ACCEPT
+# External DRPC Clients
+-A OUTPUT -d {{ host }} -p tcp --sport 3772 -j ACCEPT
+# Worker Processes
+-A OUTPUT -d {{ host }} -p tcp --sport 3773 -j ACCEPT
+# External HTTP DRPC Clients
+-A OUTPUT -d {{ host }} -p tcp --sport 3774 -j ACCEPT
 {% endif %}
 {% endfor %}
 
