@@ -32,7 +32,6 @@ nimbus.seeds: ["dimebag"]
 supervisor.slots.ports:
     - 6700
     - 6701
-    - 6702
 
 supervisor.childopts: "-Xms256m -Xmx256m"
 
@@ -46,9 +45,9 @@ supervisor.memory.capacity.mb: 512
 
 worker.profiler.enabled: true
 
-worker.heap.memory.mb: 512
+worker.heap.memory.mb: 832
 
-worker.childopts: "-Xms%HEAP-MEM%m -Xmx1024m -XX:+PrintGCDetails -Xloggc:artifacts/gc.log -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=1M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump"
+worker.childopts: "-Xms%HEAP-MEM%m -Xmx%HEAP-MEM%m -XX:+PrintGCDetails -Xloggc:artifacts/gc.log -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=1M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump"
 
 topology.eventlogger.executors: 1
 
