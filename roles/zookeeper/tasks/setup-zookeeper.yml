@@ -34,3 +34,9 @@
   remote_user: "{{ user }}"
   become: yes
   become_user: root
+
+- name: Adding Zookeeper cleanup to crontab
+  cron: name="Zookeeper cleanup" minute="0" hour="12" job="{{ zookeeper_dir }}/bin/zkCleanup.sh /var/lib/zookeeper/ -n 3"
+  remote_user: "{{ user }}"
+  become: yes
+  become_user: root
