@@ -7,6 +7,12 @@
   get_url: dest={{ storm_dir }}.tar.gz url="{{apache_mirror}}/storm/apache-storm-{{storm_version}}/apache-storm-{{storm_version}}.tar.gz"
   remote_user: "{{ user }}"
 
+- name: Installing supervisord
+  apt: name=python-lxml state=present
+  remote_user: "{{ user }}"
+  become: yes
+  become_user: root
+
 - name: Downloading Scala Lib
   maven_artifact: group_id=org.scala-lang artifact_id=scala-library version=2.10.1 dest={{ storm_dir }}/lib/scala-library-2.10.1.jar
 
