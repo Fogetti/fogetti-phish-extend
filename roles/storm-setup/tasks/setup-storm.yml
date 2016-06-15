@@ -20,12 +20,18 @@
 - name: Downloading Scala Lib
   maven_artifact: group_id=org.scala-lang artifact_id=scala-library version=2.10.1 dest={{ storm_dir }}/lib/scala-library-2.10.1.jar
   remote_user: "{{ user }}"
-  become_user: "{{ user }}"
+
+- name: Set Scala Lib permissions
+  file: path={{ storm_dir }}/lib/scala-library-2.10.1.jar owner="{{ user }}" group="{{ user }}" mode=777
+  remote_user: "{{ user }}"
 
 - name: Downloading Weka
   maven_artifact: group_id=nz.ac.waikato.cms.weka artifact_id=weka-dev version=3.9.0 dest={{ storm_dir }}/lib/weka-dev-3.9.0.jar
   remote_user: "{{ user }}"
-  become_user: "{{ user }}"
+
+- name: Set Weka permissions
+  file: path={{ storm_dir }}/lib/weka-dev-3.9.0.jar owner="{{ user }}" group="{{ user }}" mode=777
+  remote_user: "{{ user }}"
 
 - name: Creating the storm-local folder
   file: path={{ storm_dir }}/storm-local state=directory
