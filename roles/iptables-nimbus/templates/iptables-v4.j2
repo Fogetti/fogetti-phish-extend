@@ -30,6 +30,9 @@
 # Apache Storm Logviewer port
 -A INPUT -p tcp --dport 8000 -m state --state NEW -j ACCEPT
 
+# Kafka broker port
+-A INPUT -s gilbert -p tcp --dport 9092 -m state --state NEW -j ACCEPT
+
 {% for host in groups[all_servers] %}
 {% if host != inventory_hostname %}
 # Apache Storm Nimbus port
@@ -73,6 +76,9 @@
 -A OUTPUT -d gilbert -p tcp --sport 2049 -j ACCEPT
 # NFS UDP port
 -A OUTPUT -d gilbert -p udp --sport 2049 -j ACCEPT
+
+# Kafka broker port
+-A OUTPUT -d gilbert -p tcp --sport 9092 -j ACCEPT
 
 {% for host in groups[all_servers] %}
 {% if host != inventory_hostname %}

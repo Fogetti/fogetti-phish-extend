@@ -29,6 +29,8 @@
 -A INPUT -s {{ host }} -p tcp --dport 2049 -m state --state NEW -j ACCEPT
 # NFS UDP port
 -A INPUT -s {{ host }} -p udp --dport 2049 -m state --state NEW -j ACCEPT
+# Kafka broker port
+-A INPUT -s {{ host }} -p tcp --dport 9092 -m state --state NEW -j ACCEPT
 {% endif %}
 {% endfor %}
 
@@ -59,6 +61,8 @@
 -A OUTPUT -d {{ host }} -p tcp --sport 2049 -j ACCEPT
 # NFS UDP port
 -A OUTPUT -d {{ host }} -p udp --sport 2049 -j ACCEPT
+# Kafka broker port
+-A OUTPUT -d {{ host }} -p tcp --sport 9092 -j ACCEPT
 {% endif %}
 {% endfor %}
 

@@ -35,6 +35,9 @@
 # Redis port
 -A INPUT -s {{ groups[storm_redis][0] }} -p tcp --dport 6379 -m state --state NEW -j ACCEPT
 
+# Kafka broker port
+-A INPUT -s {{ groups[storm_nfs][0] }} -p tcp --dport 9092 -m state --state NEW -j ACCEPT
+
 {% for host in groups[storm_cluster] %}
 {% if host != inventory_hostname %}
 # Storm Supervisor Slot Port #1
@@ -88,6 +91,9 @@
 
 # Redis port
 -A OUTPUT -d {{ groups[storm_redis][0] }} -p tcp --sport 6379 -j ACCEPT
+
+# Kafka broker port
+-A OUTPUT -d {{ groups[storm_nfs][0] }} -p tcp --sport 9092 -j ACCEPT
 
 {% for host in groups[storm_cluster] %}
 {% if host != inventory_hostname %}
