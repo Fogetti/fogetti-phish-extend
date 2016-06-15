@@ -7,7 +7,11 @@
   get_url: dest={{ storm_dir }}.tar.gz url="{{apache_mirror}}/storm/apache-storm-{{storm_version}}/apache-storm-{{storm_version}}.tar.gz"
   remote_user: "{{ user }}"
 
-- name: Installing supervisord
+- name: Uncompressing the Storm archive
+  unarchive: copy=no creates={{ storm_dir }} dest={{ downloads_dir }} src={{ storm_dir }}.tar.gz
+  remote_user: "{{ user }}"
+
+- name: Installing lxml
   apt: name=python-lxml state=present
   remote_user: "{{ user }}"
   become: yes
@@ -18,10 +22,6 @@
 
 - name: Downloading Weka
   maven_artifact: group_id=nz.ac.waikato.cms.weka artifact_id=weka-dev version=3.9.0 dest={{ storm_dir }}/lib/weka-dev-3.9.0.jar
-
-- name: Uncompressing the Storm archive
-  unarchive: copy=no creates={{ storm_dir }} dest={{ downloads_dir }} src={{ storm_dir }}.tar.gz
-  remote_user: "{{ user }}"
 
 - name: Creating the storm-local folder
   file: path={{ storm_dir }}/storm-local state=directory
