@@ -31,7 +31,6 @@ nimbus.seeds: ["nimbus"]
  
 supervisor.slots.ports:
     - 6700
-    - 6701
 
 supervisor.childopts: "-Xms256m -Xmx256m"
 
@@ -45,7 +44,7 @@ supervisor.memory.capacity.mb: 256
 
 worker.profiler.enabled: true
 
-worker.heap.memory.mb: 1536
+worker.heap.memory.mb: 3584
 
 worker.childopts: "-Xss16M -Xms%HEAP-MEM%m -Xmx%HEAP-MEM%m -XX:+PrintGCDetails -Xloggc:artifacts/gc.log -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=1M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=artifacts/heapdump"
 
